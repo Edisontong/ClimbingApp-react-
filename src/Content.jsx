@@ -44,7 +44,7 @@ export function Content() {
 
   const handleIndexRoutes = () => {
     console.log("handleIndexRoutes");
-    axios.get(`http://localhost:3000/routes?area_id=1.json`).then((response) => {
+    axios.get(`http://localhost:3000/routes.json`).then((response) => {
       console.log(response.data);
       setRoutes(response.data);
     });

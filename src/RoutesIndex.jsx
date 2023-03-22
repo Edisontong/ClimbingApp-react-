@@ -1,16 +1,25 @@
 import { useSearchParams } from "react-router-dom";
 
 export function RoutesIndex(props) {
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const areaID = searchParams.get("area_id");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const areaID = parseInt(searchParams.get("area_id"));
 
-  // console.log(areaID);
+  let unfiltered = props.routes;
+  let areaRoutes = [];
+  let i = 0;
+
+  while (i < unfiltered.length) {
+    if (unfiltered[i].area_id === areaID) {
+      areaRoutes.push(unfiltered[i]);
+    }
+    i++;
+  }
 
   return (
     <div>
       <h1>Routes</h1>
 
-      {props.routes.map((route) => (
+      {areaRoutes.map((route) => (
         <div key={route.id}>
           <h2>{route.name}</h2>
           <img src={route.image_url} />
