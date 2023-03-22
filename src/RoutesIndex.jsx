@@ -1,7 +1,14 @@
+import { useSearchParams } from "react-router-dom";
+
 export function RoutesIndex(props) {
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const areaID = searchParams.get("area_id");
+
+  // console.log(areaID);
+
   return (
     <div>
-      <h1>All Routes</h1>
+      <h1>Routes</h1>
 
       {props.routes.map((route) => (
         <div key={route.id}>

@@ -1,8 +1,13 @@
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./Home";
 import { Signup } from "./Signup";
 import { Login } from "./Login";
-import { LogoutLink } from "./LogoutLink";
 import { AscentsIndex } from "./AscentsIndex";
 import { AscentsNew } from "./AscentsNew";
 import { AreasIndex } from "./AreasIndex";
@@ -39,7 +44,7 @@ export function Content() {
 
   const handleIndexRoutes = () => {
     console.log("handleIndexRoutes");
-    axios.get("http://localhost:3000/routes.json").then((response) => {
+    axios.get(`http://localhost:3000/routes?area_id=1.json`).then((response) => {
       console.log(response.data);
       setRoutes(response.data);
     });
@@ -50,15 +55,16 @@ export function Content() {
   useEffect(handleIndexAscents, []);
 
   return (
-    <div>
-      <h1>hello world</h1>
-      <Signup />
-      <Login />
-      <LogoutLink />
-      <AscentsNew onCreateAscent={handleCreateAscent} />
-      <AreasIndex areas={areas} />
-      <RoutesIndex routes={routes} />
-      <AscentsIndex ascents={ascents} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/ascents/new" element={<AscentsNew onCreateAscent={handleCreateAscent} />} />
+        <Route path="/areas" element={<AreasIndex areas={areas} />} />
+        <Route path="/routes" element={<RoutesIndex routes={routes} />} />
+        <Route path="/ascents" element={<AscentsIndex ascents={ascents} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
